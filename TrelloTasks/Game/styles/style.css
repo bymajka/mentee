@@ -1,0 +1,15 @@
+.hurt-effect {
+    filter: brightness(0.5) saturate(2) hue-rotate(-30deg);
+    transition: filter 0.2s ease;
+    animation: hurt 0.2s backwards;
+}
+
+@keyframes hurt {
+    0% {
+        transform: none;
+    }
+
+    50% {
+        transform: rotate(-10deg);
+    }
+}
