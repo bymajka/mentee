@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 .hurt-effect {
     filter: brightness(0.5) saturate(2) hue-rotate(-30deg);
     transition: filter 0.2s ease;
@@ -12,4 +14,42 @@
     50% {
         transform: rotate(-10deg);
     }
+}
+
+body {
+    background-color: #9E6BEF;
+    font-family: 'Jersey 25';
+    color: #241A33;
+}
+
+.image-stats__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 26px;
+}
+
+.buttons__container {
+    gap: 10px;
+}
+
+button {
+    background-color: #86799B;
+    padding: 1em 2em;
+    color: white;
+    border: 2px #977AC5 solid;
+    border-radius: 10%;
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+button:disabled {
+    background-color: #665F70;
+    color: #86799B;
+}
+
+#logLine {
+    font-size: 18px;;
 }

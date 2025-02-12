@@ -1,51 +1,51 @@
-import EffectManager from "./EffectManager.js";
-import GameManager from "./GameManager.js";
+import GameManager from "./managers/GameManager.js";
 
 export default class UIController {
   constructor(game) {
     this.game = game;
+    this.renderCreatures();
+    this.buttons = {
+      attack: document.getElementById("attackButton"),
+      heal: document.getElementById("healButton"),
+      bomb: document.getElementById("bombButton"),
+    };
+    this.initEventListeners();
     this.game.subscribe("turnStart", this.updateUI.bind(this));
-    document.getElementById("attackButton").addEventListener("click", () => {
-      this.handleAction("attack");
-    });
-    document.getElementById("healButton").addEventListener("click", () => {
-      this.handleAction("heal");
-    });
-    document.getElementById("bombButton").addEventListener("click", () => {
-      this.handleAction("bomb");
-    });
+    this.game.subscribe("updateHealth", this.updateHealth.bind(this));
   }
 
-  updateUI = (creature) => {
-    if (creature === this.game.player) {
-      document.getElementById("attackButton").disabled = false;
-      document.getElementById("healButton").disabled = false;
-      GameManager.logger(`It's ${this.game.player.name}'s turn`);
-    } else {
-      document.getElementById("attackButton").disabled = true;
-      document.getElementById("healButton").disabled = true;
-      GameManager.logger(`It's ${this.game.monster.type}'s turn`);
-    }
+  initEventListeners = () => {
+    Object.keys(this.buttons).forEach((action) => {
+      this.buttons[action].addEventListener("click", () =>
+        this.game.notify("playerAction", action)
+      );
+    });
   };
 
-  static updateHitPoints = (creature, statsId) => {
+  updateUI = (creature) => {
+    const isPlayerTurn = creature === this.game.player;
+    this.toggleButtons(isPlayerTurn);
+    GameManager.logger(
+      `It's ${
+        isPlayerTurn ? this.game.player.name : this.game.monster.type
+      }'s turn`
+    );
+  };
+
+  updateHealth = ({ creature, statsId }) => {
     document.getElementById(statsId).innerText = `HP: ${creature.hitpoints}`;
   };
 
-  handleAction(action) {
-    document.getElementById("attackButton").disabled = true;
-    document.getElementById("healButton").disabled = true;
-
-    if (action === "attack") {
-      this.game.player.attack(this.game.monster);
-      EffectManager.applyHurtEffect("monsterImage");
-    } else if (action === "heal") {
-      this.game.player.heal();
-    } else if (action === "bomb") {
-      this.game.player.throwBomb(this.game.monster);
-      EffectManager.applyHurtEffect("monsterImage");
-    }
-
-    this.game.notify("turnEnd");
+  toggleButtons(enable) {
+    Object.values(this.buttons).forEach(
+      (button) => (button.disabled = !enable)
+    );
   }
+
+  renderCreatures = () => {
+    const playerImg = document.getElementById("playerImage");
+    const monsterImg = document.getElementById("monsterImage");
+    playerImg.src = this.game.player.imgPath;
+    monsterImg.src = this.game.monster.imgPath;
+  };
 }

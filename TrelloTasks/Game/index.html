@@ -7,17 +7,21 @@
     <title>Document</title>
 </head>
 <body style="display: flex; flex-direction: column; align-items: center;">
+    <!-- <form action="">
+        <select name="player" id="playerSelection">
+        </select>
+    </form> -->
     <div style="width: 100%; display: flex; flex-direction: row; gap: 5px; justify-content: center;">
-        <div>
-            <img id="playerImage" src="./images/geralt-witcher.png" alt="Picture of witcher" style="margin: 0 -30px;">
+        <div class="image-stats__container">
+            <img id="playerImage" src="" alt="Picture of witcher" style="margin: 0 -30px;">
             <p id="playerStats"></p>
         </div>
-        <div>
-            <img id="monsterImage" src="./images/hydra.png" alt="Picture of hydra" style="margin: 0 -30px;">
+        <div class="image-stats__container">
+            <img id="monsterImage" src="" alt="Picture of hydra" style="margin: 0 -30px;">
             <p id="monsterStats"></p>
         </div>
     </div>
-    <div style="display: flex; flex-direction: row;">
+    <div class="buttons__container" style="display: flex; flex-direction: row;">
         <button id="attackButton">Attack</button>
         <button id="healButton">Heal</button>
         <button id="bombButton">Throw a bomb</button>

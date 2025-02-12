@@ -1,12 +1,11 @@
-import { Bomb } from "./Bomb.js";
+import { Bomb } from "../items/Bomb.js";
 import Creature from "./Creature.js";
-import GameManager from "./GameManager.js";
-import HealthPotion from "./HealthPotion.js";
-import UIController from "./UIController.js";
+import GameManager from "../managers/GameManager.js";
+import HealthPotion from "../items/HealthPotion.js";
 
 export default class Player extends Creature {
-  constructor(name, maxHitpoints, power, items) {
-    super(maxHitpoints, power);
+  constructor(name, maxHitpoints, power, items, imgPath) {
+    super(maxHitpoints, power, imgPath);
     this.name = name;
     this.items = items;
   }
@@ -23,6 +22,7 @@ export default class Player extends Creature {
 
     if (this.hitpoints === this.maxHitpoints) {
       GameManager.logger(`${this.name} already have full hp`);
+      return;
     }
 
     this.hitpoints =
@@ -40,13 +40,12 @@ export default class Player extends Creature {
     GameManager.logger(
       `${this.name} attacks ${target.type} for ${this.power} damage`
     );
-    UIController.updateHitPoints(target, "monsterStats");
   };
 
   throwBomb = (target) => {
     const bombIndex = this.items.findIndex((item) => item instanceof Bomb);
 
-    if (!bombIndex === -1) {
+    if (bombIndex === -1) {
       GameManager.logger(`${this.name} has no bombs left`);
       return;
     }
@@ -56,7 +55,6 @@ export default class Player extends Creature {
     GameManager.logger(
       `${this.name} throws a bomb and deals ${this.items[bombIndex].damageAmount} damage`
     );
-    UIController.updateHitPoints(target, "monsterStats");
     this.items.splice(bombIndex, 1);
   };
 }

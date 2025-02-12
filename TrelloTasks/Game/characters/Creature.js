@@ -1,11 +1,9 @@
-import { logger } from "./logger.js";
-import { Observable } from "./Observable.js";
-
 class Creature {
-  constructor(maxHitpoints, power) {
+  constructor(maxHitpoints, power, imgPath) {
     this.maxHitpoints = maxHitpoints;
     this.power = power;
     this.hitpoints = maxHitpoints;
+    this.imgPath = imgPath;
   }
 
   isAlive = () => {
@@ -15,10 +13,6 @@ class Creature {
   attack(target) {
     target.hitpoints -= this.power;
   }
-
-  dead = () => {
-    logger("This creature is dead.");
-  };
 }
 
 export default Creature;

@@ -1,9 +1,9 @@
 import Creature from "./Creature.js";
-import GameManager from "./GameManager.js";
+import GameManager from "../managers/GameManager.js";
 
 export default class Monster extends Creature {
-  constructor(type, maxHitpoints, power) {
-    super(maxHitpoints, power);
+  constructor(type, maxHitpoints, power, imgPath) {
+    super(maxHitpoints, power, imgPath);
     this.type = type;
   }
 
