@@ -1,4 +1,4 @@
-class Creature {
+export default class Creature {
   constructor(maxHitpoints, power, imgPath) {
     this.maxHitpoints = maxHitpoints;
     this.power = power;
@@ -14,5 +14,3 @@ class Creature {
     target.hitpoints -= this.power;
   }
 }
-
-export default Creature;

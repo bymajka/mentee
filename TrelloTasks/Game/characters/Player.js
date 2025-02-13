@@ -25,10 +25,16 @@ export default class Player extends Creature {
       return;
     }
 
-    this.hitpoints =
-      this.hitpoints >= this.maxHitpoints
-        ? this.maxHitpoints
-        : this.hitpoints + this.items[healthPotionIndex].amountOfHeal;
+    this.hitpoints = Math.min(
+      this.maxHitpoints,
+      this.hitpoints + this.items[healthPotionIndex].amountOfHeal
+    );
+
+    // this.hitpoints =
+    //   this.hitpoints + this.items[healthPotionIndex].amountOfHeal >
+    //   this.maxHitpoints
+    //     ? this.maxHitpoints
+    //     : this.hitpoints + this.items[healthPotionIndex].amountOfHeal;
     GameManager.logger(
       `${this.name} uses health potion and recovers ${this.items[healthPotionIndex].amountOfHeal}`
     );

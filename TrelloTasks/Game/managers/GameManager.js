@@ -1,20 +1,39 @@
+import CharacterSelector from "../CharacterSelector.js";
 import { Observable } from "../Observable.js";
 import UIController from "../UIController.js";
 import EffectManager from "./EffectManager.js";
+import Player from "../characters/Player.js";
+import { Bomb } from "../items/Bomb.js";
+import HealthPotion from "../items/HealthPotion.js";
 
 export default class GameManager extends Observable {
-  constructor(player, monster) {
+  constructor(monster) {
     super();
-    (this.player = player),
-      (this.monster = monster),
-      (this.turnQueue = [this.player, this.monster]);
-    this.currentTurn = 0;
+    (this.player = null), (this.monster = monster), (this.turnQueue = []);
+    this.uiController = new UIController(this);
+
+    new CharacterSelector(this.startGame.bind(this));
 
     this.subscribe("turnEnd", this.handleTurnEnd.bind(this));
     this.subscribe("playerAction", this.handlePlayerAction.bind(this));
   }
 
-  startGame() {
+  startGame(selectedCharacter) {
+    this.player = new Player(
+      selectedCharacter.name,
+      selectedCharacter.hp,
+      selectedCharacter.damage,
+      selectedCharacter.items,
+      selectedCharacter.image
+    );
+
+    this.turnQueue = [this.player, this.monster];
+    this.currentTurn = 0;
+
+    this.uiController.renderCreatures();
+
+    this.giveItems();
+
     this.notify("turnStart", this.turnQueue[this.currentTurn]);
   }
 
@@ -64,6 +83,14 @@ export default class GameManager extends Observable {
     } else {
       GameManager.logger(`${this.monster.type} wins!`);
     }
+  }
+
+  giveItems() {
+    const items = [new HealthPotion(30), new HealthPotion(15), new Bomb(40)];
+
+    items.forEach((item) => {
+      this.player.items.push(item);
+    });
   }
 
   static logger(message) {
