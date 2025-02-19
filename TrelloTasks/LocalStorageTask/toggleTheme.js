@@ -1,10 +1,9 @@
 import calculateSettingsAsThemeString from "./calculateSettingsAsThemeString.js";
+import isLocalStorageFull from "./localStorageFull.js";
 import updateButton from "./updateButton.js";
 import updateThemeOnHtmlEl from "./updateThemeOnHtmlEl.js";
 
 const button = document.querySelector("[data-theme-toggle]");
-
-const toggleButton = document.querySelector("[data-theme-toggle]");
 const localStorageTheme = localStorage.getItem("theme");
 const systemSettingDark = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -19,11 +18,13 @@ updateThemeOnHtmlEl(currentThemeSettings);
 button.addEventListener("click", () => {
   const newTheme = currentThemeSettings === "dark" ? "light" : "dark";
 
-  localStorage.setItem("theme", newTheme);
-  updateButton(button, newTheme === "dark");
-  updateThemeOnHtmlEl(newTheme);
+  if (!isLocalStorageFull()) {
+    localStorage.setItem("theme", newTheme);
+    updateButton(button, newTheme === "dark");
+    updateThemeOnHtmlEl(newTheme);
 
-  currentThemeSettings = newTheme;
+    currentThemeSettings = newTheme;
+  } else alert("local storage is full! Consider clearing some data");
 });
 
 window.addEventListener("storage", (event) => {
