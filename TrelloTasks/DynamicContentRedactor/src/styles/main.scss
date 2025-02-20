@@ -1,0 +1,74 @@
+@use "variables" as v;
+@import "reset.scss";
+
+@mixin inputElement($width, $margin, $padding, $color) {
+    width: $width;
+    margin: $margin;
+    padding: $padding;
+    color: $color;
+    background-color: v.$input-bg-color;
+
+    outline: none;
+    border: none;
+
+    border-radius: 1rem;
+
+    font-size: v.$default-font;
+
+    box-shadow: 2px -2px 5px v.$input-bg-accent-color;
+}
+
+body {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: v.$bg-color;
+
+    color: v.$txt-color;
+
+    font-family: v.$font-montserrat;
+}
+
+select{
+    @include inputElement(10rem, 1rem, 1rem, white);
+
+    option:last-child{
+        border-radius: 0 0 10px 10px;
+    }
+}
+
+button {
+    @include inputElement(10rem, 0, 1rem, white);
+    margin-bottom: 1rem;
+
+    &:hover {
+        box-shadow: 4px -4px 5px v.$input-bg-accent-color;
+    }
+}
+
+input {
+    @include inputElement(20rem, 1rem, 1rem, v.$txt-color);
+}
+
+.generated-element {
+    border: 5px solid v.$element-border-color;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: v.$element-bg-color;
+    color: white;
+}
+
+p,h1 {
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: v.$lg-font;
+}
+
+h2 {
+    font-size: v.$md-font;
+}
+
