@@ -13,6 +13,7 @@ export default function createDOMElement(
     });
   }
   newElement.innerText = innerText;
+  if (parent === null) return newElement;
   parent.appendChild(newElement);
   return newElement;
 }

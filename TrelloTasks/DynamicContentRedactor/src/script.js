@@ -5,26 +5,27 @@ import {
   reloadElements,
   saveElement,
 } from "./localStorageHandler.js";
+import { editElement } from "./editHandler.js";
 const possibleElements = [
   { element: "p", inner: "create paragraph" },
   { element: "h1", inner: "create the biggest header" },
   { element: "h2", inner: "create second level header" },
 ];
-const selectList = createDOMElement("select", document.body, null);
-possibleElements.forEach((element) => {
-  createDOMElement("option", selectList, null, element.element);
-});
-const button = createDOMElement(
-  "button",
-  document.body,
-  null,
-  "Create element"
-);
 const postContainer = createDOMElement(
   "div",
   document.body,
   new Map([["class", "post__container"]]),
   null
+);
+const selectList = createDOMElement("select", document.body, null);
+possibleElements.forEach((element) => {
+  createDOMElement("option", selectList, null, element.element);
+});
+const inputFieldButton = createDOMElement(
+  "button",
+  document.body,
+  null,
+  "Create element"
 );
 
 window.addEventListener("storage", (event) => {
@@ -33,7 +34,7 @@ window.addEventListener("storage", (event) => {
 
 window.addEventListener("DOMContentLoaded", () => loadElements(postContainer));
 
-button.addEventListener("click", () => {
+inputFieldButton.addEventListener("click", () => {
   if (!document.getElementById("input-for-element")) {
     const inputForElement = createDOMElement(
       "input",
@@ -41,6 +42,7 @@ button.addEventListener("click", () => {
       new Map([
         ["type", "text"],
         ["id", "input-for-element"],
+        ["class", "element-input"],
       ])
     );
     inputForElement.addEventListener("change", () => {
@@ -55,6 +57,9 @@ button.addEventListener("click", () => {
         selectList.value,
         inputForElement.value,
         generatedElement.className
+      );
+      generatedElement.addEventListener("click", () =>
+        editElement(generatedElement)
       );
     });
   } else return;

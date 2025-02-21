@@ -1,0 +1,40 @@
+import createDOMElement from "./createDOMElement";
+import { reloadElements, saveAllElements } from "./localStorageHandler";
+
+export const selectedText = {
+  selectionStart: "",
+  selectionEnd: "",
+};
+
+export function editElement(element, index) {
+  const currentText = element.innerText;
+  const input = createDOMElement(
+    "input",
+    null,
+    new Map([
+      ["type", "text"],
+      ["class", "edit-input"],
+    ]),
+    null
+  );
+  input.value = currentText;
+  element.replaceWith(input);
+  input.focus();
+
+  input.addEventListener("blur", () => saveEdit(input, index));
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") saveEdit(input, index);
+  });
+}
+
+function saveEdit(input, index) {
+  const elements = JSON.parse(localStorage.getItem("elements")) || [];
+  const newText = input.value.trim();
+
+  if (newText && elements[index]) {
+    elements[index].text = newText;
+    saveAllElements(elements);
+  }
+
+  reloadElements(input.parentElement);
+}

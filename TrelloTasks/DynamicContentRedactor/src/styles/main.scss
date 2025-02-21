@@ -18,6 +18,14 @@
     box-shadow: 2px -2px 5px v.$input-bg-accent-color;
 }
 
+@mixin element($border-w, $border-type, $border-color, $padding, $border-radius, $color){
+    border: $border-w $border-type $border-color;
+    padding: $padding;
+    border-radius: $border-radius;
+    background-color: v.$element-bg-color;
+    color: $color;
+}
+
 body {
     width: 60%;
     margin: 0 auto;
@@ -29,6 +37,11 @@ body {
     color: v.$txt-color;
 
     font-family: v.$font-montserrat;
+}
+
+.post__container {
+    width: 40rem;
+    position:relative;
 }
 
 select{
@@ -48,16 +61,42 @@ button {
     }
 }
 
-input {
-    @include inputElement(20rem, 1rem, 1rem, v.$txt-color);
+.bold-button {
+    z-index: 3;
+    width: 100px;
+    right: 20px;
+    top: 20px;
+    height: 30px;
+    position: absolute;
+}
+
+.element-input {
+    @include inputElement(20rem, 1rem, 1rem, white);
 }
 
 .generated-element {
-    border: 5px solid v.$element-border-color;
-    padding: 1rem;
-    border-radius: 10px;
-    background-color: v.$element-bg-color;
-    color: white;
+    @include element(5px, solid, v.$element-border-color, 1rem, 10px, white);
+    overflow:auto;
+    width: 100%;
+    
+    scrollbar-color: v.$bg-color v.$element-bg-color;
+    scrollbar-width: thin;
+    
+}
+
+.edit-input {
+    @include element(5px, solid, v.$element-border-color, 1rem, 10px, white);
+
+    display: block;
+    line-height: 1rem;
+    margin: 1rem auto;
+    font-size: v.$md-font;
+    outline: none;
+    width: 100%;
+
+    &:focus{
+        border: 5px solid darken($color: v.$element-border-color, $amount: 15);
+    }
 }
 
 p,h1 {
