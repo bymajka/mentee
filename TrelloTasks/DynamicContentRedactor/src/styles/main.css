@@ -98,6 +98,11 @@ button:hover {
   box-shadow: 4px -4px 5px #4A6196;
 }
 
+.format-button {
+  margin: 0 20px;
+  cursor: pointer;
+}
+
 .bold-button {
   z-index: 3;
   width: 100px;
@@ -160,6 +165,23 @@ button:hover {
 
 .italic-text {
   font-style: italic;
+}
+
+.remove-button {
+  width: 10rem;
+  margin: 0;
+  padding: 1rem;
+  color: white;
+  background-color: #2663EB;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  font-size: 16px;
+  box-shadow: 2px -2px 5px orangered;
+  background-color: orangered;
+}
+.remove-button:hover {
+  box-shadow: 4px -4px 5px rgb(205, 55, 0);
 }
 
 p, h1 {

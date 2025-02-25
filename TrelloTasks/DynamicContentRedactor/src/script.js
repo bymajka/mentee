@@ -4,8 +4,10 @@ import {
   loadElements,
   reloadElements,
   saveElement,
+  removeElement,
 } from "./localStorageHandler.js";
 import { editElement } from "./editHandler.js";
+import { createRemoveButton } from "./Buttons/createRemoveButton.js";
 const possibleElements = [
   { element: "p", inner: "create paragraph" },
   { element: "h1", inner: "create the biggest header" },
@@ -99,6 +101,27 @@ inputFieldButton.addEventListener("click", () => {
           generatedElement.className
         );
       });
+      createRemoveButton(
+        post,
+        "Remove",
+        selectList.value,
+        generatedElement.innerText,
+        generatedElement.className
+      );
+      // const removeButton = createDOMElement(
+      //   "button",
+      //   post,
+      //   new Map([["class", "remove-button format-button"]]),
+      //   "Remove"
+      // );
+      // removeButton.addEventListener("click", () => {
+      //   post.remove();
+      //   removeElement(
+      //     selectList.value,
+      //     generatedElement.innerText,
+      //     generatedElement.className
+      //   );
+      // });
     });
   } else return;
 });
