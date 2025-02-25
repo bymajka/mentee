@@ -1,11 +1,6 @@
 import createDOMElement from "./createDOMElement";
 import { reloadElements, saveAllElements } from "./localStorageHandler";
 
-export const selectedText = {
-  selectionStart: "",
-  selectionEnd: "",
-};
-
 export function editElement(element, parent, index) {
   const currentText = element.innerText;
   const input = createDOMElement(
