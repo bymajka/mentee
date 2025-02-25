@@ -32,7 +32,9 @@ window.addEventListener("storage", (event) => {
   if (event.key === "elements") reloadElements(postContainer);
 });
 
-window.addEventListener("DOMContentLoaded", () => loadElements(postContainer));
+window.addEventListener("DOMContentLoaded", () =>
+  reloadElements(postContainer)
+);
 
 inputFieldButton.addEventListener("click", () => {
   if (!document.getElementById("input-for-element")) {
@@ -47,9 +49,15 @@ inputFieldButton.addEventListener("click", () => {
     );
     inputForElement.addEventListener("change", () => {
       if (inputForElement.value === "") return;
+      const post = createDOMElement(
+        "div",
+        postContainer,
+        new Map([["class", "post__container-post"]]),
+        undefined
+      );
       const generatedElement = createDOMElement(
         selectList.value,
-        postContainer,
+        post,
         new Map([["class", "generated-element"]]),
         inputForElement.value
       );
@@ -59,8 +67,38 @@ inputFieldButton.addEventListener("click", () => {
         generatedElement.className
       );
       generatedElement.addEventListener("click", () =>
-        editElement(generatedElement)
+        editElement(generatedElement, post)
       );
+
+      const boldButton = createDOMElement(
+        "button",
+        post,
+        new Map([["class", "format-button"]]),
+        "Bold"
+      );
+      boldButton.addEventListener("click", () => {
+        generatedElement.classList.toggle("bold-text");
+        saveElement(
+          selectList.value,
+          generatedElement.innerText,
+          generatedElement.className
+        );
+      });
+
+      const italicButton = createDOMElement(
+        "button",
+        post,
+        new Map([["class", "format-button"]]),
+        "Italic"
+      );
+      italicButton.addEventListener("click", () => {
+        generatedElement.classList.toggle("italic-text");
+        saveElement(
+          selectList.value,
+          generatedElement.innerText,
+          generatedElement.className
+        );
+      });
     });
   } else return;
 });

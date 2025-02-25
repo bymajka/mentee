@@ -120,7 +120,7 @@ button:hover {
   box-shadow: 2px -2px 5px #4A6196;
 }
 
-.generated-element {
+.generated-element, .post__container-post {
   border: 5px solid #6B6047;
   padding: 1rem;
   border-radius: 10px;
@@ -128,8 +128,13 @@ button:hover {
   color: white;
   overflow: auto;
   width: 100%;
+  margin: 5px 0;
   scrollbar-color: #EBB026 #AB8D46;
   scrollbar-width: thin;
+}
+
+.generated-element {
+  width: 90%;
 }
 
 .edit-input {
@@ -147,6 +152,14 @@ button:hover {
 }
 .edit-input:focus {
   border: 5px solid rgb(61.0140449438, 54.7415730337, 40.4859550562);
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.italic-text {
+  font-style: italic;
 }
 
 p, h1 {

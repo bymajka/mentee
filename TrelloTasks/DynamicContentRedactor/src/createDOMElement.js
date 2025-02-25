@@ -12,8 +12,9 @@ export default function createDOMElement(
       newElement.setAttribute(key, value);
     });
   }
-  newElement.innerText = innerText;
-  if (parent === null) return newElement;
+  if (innerText !== undefined) newElement.innerText = innerText;
+  if (parent === undefined) return newElement;
+
   parent.appendChild(newElement);
   return newElement;
 }

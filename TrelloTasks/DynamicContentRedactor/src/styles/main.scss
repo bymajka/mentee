@@ -74,14 +74,18 @@ button {
     @include inputElement(20rem, 1rem, 1rem, white);
 }
 
-.generated-element {
+.generated-element, .post__container-post {
     @include element(5px, solid, v.$element-border-color, 1rem, 10px, white);
     overflow:auto;
     width: 100%;
+    margin: 5px 0;
     
     scrollbar-color: v.$bg-color v.$element-bg-color;
     scrollbar-width: thin;
-    
+}
+
+.generated-element {
+    width: 90%;
 }
 
 .edit-input {
@@ -97,6 +101,14 @@ button {
     &:focus{
         border: 5px solid darken($color: v.$element-border-color, $amount: 15);
     }
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.italic-text {
+    font-style: italic;
 }
 
 p,h1 {

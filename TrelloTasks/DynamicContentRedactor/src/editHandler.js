@@ -6,11 +6,11 @@ export const selectedText = {
   selectionEnd: "",
 };
 
-export function editElement(element, index) {
+export function editElement(element, parent, index) {
   const currentText = element.innerText;
   const input = createDOMElement(
     "input",
-    null,
+    parent,
     new Map([
       ["type", "text"],
       ["class", "edit-input"],
@@ -21,20 +21,20 @@ export function editElement(element, index) {
   element.replaceWith(input);
   input.focus();
 
-  input.addEventListener("blur", () => saveEdit(input, index));
+  input.addEventListener("blur", () => saveEdit(input, parent, index));
   input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") saveEdit(input, index);
+    if (e.key === "Enter") saveEdit(input, parent, index);
   });
 }
 
-function saveEdit(input, index) {
+function saveEdit(input, parent, index) {
   const elements = JSON.parse(localStorage.getItem("elements")) || [];
   const newText = input.value.trim();
 
   if (newText && elements[index]) {
     elements[index].text = newText;
-    saveAllElements(elements);
   }
 
-  reloadElements(input.parentElement);
+  saveAllElements(elements);
+  reloadElements(parent);
 }
