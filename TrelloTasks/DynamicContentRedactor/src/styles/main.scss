@@ -1,7 +1,7 @@
 @use "variables" as v;
 @import "reset.scss";
 
-@mixin inputElement($width, $margin, $padding, $color) {
+@mixin inputElement($width, $margin, $padding, $color, $box-shadow-color) {
     width: $width;
     margin: $margin;
     padding: $padding;
@@ -15,7 +15,7 @@
 
     font-size: v.$default-font;
 
-    box-shadow: 2px -2px 5px v.$input-bg-accent-color;
+    box-shadow: 2px -2px 5px $box-shadow-color;
 }
 
 @mixin element($border-w, $border-type, $border-color, $padding, $border-radius, $color){
@@ -45,7 +45,7 @@ body {
 }
 
 select{
-    @include inputElement(10rem, 1rem, 1rem, white);
+    @include inputElement(10rem, 1rem, 1rem, white, v.$input-bg-accent-color);
 
     option:last-child{
         border-radius: 0 0 10px 10px;
@@ -53,12 +53,17 @@ select{
 }
 
 button {
-    @include inputElement(10rem, 0, 1rem, white);
+    @include inputElement(10rem, 0, 1rem, white, v.$input-bg-accent-color);
     margin-bottom: 1rem;
 
     &:hover {
         box-shadow: 4px -4px 5px v.$input-bg-accent-color;
     }
+}
+
+.format-button {
+    margin: 0 20px;
+    cursor: pointer;
 }
 
 .bold-button {
@@ -71,7 +76,7 @@ button {
 }
 
 .element-input {
-    @include inputElement(20rem, 1rem, 1rem, white);
+    @include inputElement(20rem, 1rem, 1rem, white, v.$input-bg-accent-color);
 }
 
 .generated-element, .post__container-post {
@@ -109,6 +114,15 @@ button {
 
 .italic-text {
     font-style: italic;
+}
+
+.remove-button {
+    @include inputElement(10rem, 0, 1rem, white, orangered);
+    background-color: orangered;
+
+    &:hover {
+        box-shadow: 4px -4px 5px rgb(205, 55, 0);
+    }
 }
 
 p,h1 {

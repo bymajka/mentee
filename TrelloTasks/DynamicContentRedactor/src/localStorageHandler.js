@@ -1,3 +1,4 @@
+import { createRemoveButton } from "./Buttons/createRemoveButton.js";
 import createDOMElement from "./createDOMElement.js";
 import { editElement } from "./editHandler.js";
 
@@ -67,6 +68,23 @@ export function loadElements(parent) {
       newElement.classList.toggle("italic-text");
       saveElement(tag, newElement.innerText, newElement.className);
     });
+    createRemoveButton(
+      post,
+      "Remove",
+      tag,
+      newElement.innerText,
+      newElement.className
+    );
+    // const removeButton = createDOMElement(
+    //   "button",
+    //   post,
+    //   new Map([["class", "remove-button format-button"]]),
+    //   "Remove"
+    // );
+    // removeButton.addEventListener("click", () => {
+    //   post.remove();
+    //   removeElement(tag, newElement.innerText, newElement.className);
+    // });
 
     newElement.addEventListener("click", () =>
       editElement(newElement, parent, index)
@@ -77,4 +95,15 @@ export function loadElements(parent) {
 export function reloadElements(container) {
   container.innerHTML = "";
   loadElements(container);
+}
+
+export function removeElement(tag, text, classes = []) {
+  const elements = JSON.parse(localStorage.getItem("elements")) || [];
+  const elementIndex = elements.findIndex(
+    (element) => element.tag === tag && element.text === text
+  );
+  if (elementIndex !== -1) {
+    elements.splice(elementIndex, 1);
+  }
+  saveAllElements(elements);
 }
