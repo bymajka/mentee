@@ -1,5 +1,3 @@
-import { saveElement } from "./localStorageHandler.js";
-
 export default function createDOMElement(
   element,
   parent,

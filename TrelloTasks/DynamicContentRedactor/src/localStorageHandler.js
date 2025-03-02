@@ -1,3 +1,5 @@
+import { createBoldButton } from "./Buttons/createBoldButton.js";
+import { createItalicButton } from "./Buttons/createItalicButton.js";
 import { createRemoveButton } from "./Buttons/createRemoveButton.js";
 import createDOMElement from "./createDOMElement.js";
 import { editElement } from "./editHandler.js";
@@ -47,44 +49,9 @@ export function loadElements(parent) {
       newElement.className = classes;
     }
 
-    const boldButton = createDOMElement(
-      "button",
-      post,
-      new Map([["class", "format-button"]]),
-      "Bold"
-    );
-    boldButton.addEventListener("click", () => {
-      newElement.classList.toggle("bold-text");
-      saveElement(tag, newElement.innerText, newElement.className);
-    });
-
-    const italicButton = createDOMElement(
-      "button",
-      post,
-      new Map([["class", "format-button"]]),
-      "Italic"
-    );
-    italicButton.addEventListener("click", () => {
-      newElement.classList.toggle("italic-text");
-      saveElement(tag, newElement.innerText, newElement.className);
-    });
-    createRemoveButton(
-      post,
-      "Remove",
-      tag,
-      newElement.innerText,
-      newElement.className
-    );
-    // const removeButton = createDOMElement(
-    //   "button",
-    //   post,
-    //   new Map([["class", "remove-button format-button"]]),
-    //   "Remove"
-    // );
-    // removeButton.addEventListener("click", () => {
-    //   post.remove();
-    //   removeElement(tag, newElement.innerText, newElement.className);
-    // });
+    createBoldButton(post, "Bold", tag, newElement);
+    createItalicButton(post, "Italic", tag, newElement);
+    createRemoveButton(post, "Remove", tag, newElement);
 
     newElement.addEventListener("click", () =>
       editElement(newElement, parent, index)

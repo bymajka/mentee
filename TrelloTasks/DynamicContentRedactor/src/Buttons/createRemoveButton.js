@@ -1,21 +1,16 @@
-import createDOMElement from "../createDOMElement";
 import { removeElement } from "../localStorageHandler";
+import { createButton } from "./createButton";
 
-export function createRemoveButton(
-  parent,
-  text,
-  tagToRemove,
-  elementText,
-  elementClasses
-) {
-  const removeButton = createDOMElement(
-    "button",
+export function createRemoveButton(parent, text, tagToRemove, element) {
+  const removeButton = createButton(
     parent,
-    new Map([["class", "remove-button format-button"]]),
-    text
+    text,
+    function () {
+      parent.remove();
+      removeElement(tagToRemove, element.innerText, element.className);
+    },
+    "remove-button"
   );
-  removeButton.addEventListener("click", () => {
-    parent.remove();
-    removeElement(tagToRemove, elementText, elementClasses);
-  });
+
+  return removeButton;
 }
