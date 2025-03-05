@@ -1,0 +1,140 @@
+@use "variables" as v;
+@import "reset.scss";
+
+@mixin inputElement($width, $margin, $padding, $color, $box-shadow-color) {
+    width: $width;
+    margin: $margin;
+    padding: $padding;
+    color: $color;
+    background-color: v.$input-bg-color;
+
+    outline: none;
+    border: none;
+
+    border-radius: 1rem;
+
+    font-size: v.$default-font;
+
+    box-shadow: 2px -2px 5px $box-shadow-color;
+}
+
+@mixin element($border-w, $border-type, $border-color, $padding, $border-radius, $color){
+    border: $border-w $border-type $border-color;
+    padding: $padding;
+    border-radius: $border-radius;
+    background-color: v.$element-bg-color;
+    color: $color;
+}
+
+body {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: v.$bg-color;
+
+    color: v.$txt-color;
+
+    font-family: v.$font-montserrat;
+}
+
+.post__container {
+    width: 40rem;
+    position:relative;
+}
+
+select{
+    @include inputElement(10rem, 1rem, 1rem, white, v.$input-bg-accent-color);
+
+    option:last-child{
+        border-radius: 0 0 10px 10px;
+    }
+}
+
+button {
+    @include inputElement(10rem, 0, 1rem, white, v.$input-bg-accent-color);
+    margin-bottom: 1rem;
+
+    &:hover {
+        box-shadow: 4px -4px 5px v.$input-bg-accent-color;
+    }
+}
+
+.format-button {
+    margin: 0 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.bold-button {
+    z-index: 3;
+    width: 100px;
+    right: 20px;
+    top: 20px;
+    height: 30px;
+    position: absolute;
+}
+
+.element-input {
+    @include inputElement(20rem, 1rem, 1rem, white, v.$input-bg-accent-color);
+}
+
+.generated-element, .post__container-post {
+    @include element(5px, solid, v.$element-border-color, 1rem, 10px, white);
+    overflow:auto;
+    width: 100%;
+    margin: 5px 0;
+    
+    scrollbar-color: v.$bg-color v.$element-bg-color;
+    scrollbar-width: thin;
+}
+
+.generated-element {
+    width: 90%;
+}
+
+.edit-input {
+    @include element(5px, solid, v.$element-border-color, 1rem, 10px, white);
+
+    display: block;
+    line-height: 1rem;
+    margin: 1rem auto;
+    font-size: v.$md-font;
+    outline: none;
+    width: 100%;
+
+    &:focus{
+        border: 5px solid darken($color: v.$element-border-color, $amount: 15);
+    }
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.italic-text {
+    font-style: italic;
+}
+
+.remove-button {
+    @include inputElement(10rem, 0, 1rem, white, orangered);
+    background-color: orangered;
+
+    &:hover {
+        box-shadow: 4px -4px 5px rgb(205, 55, 0);
+    }
+}
+
+p,h1 {
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: v.$lg-font;
+}
+
+h2 {
+    font-size: v.$md-font;
+}
+
